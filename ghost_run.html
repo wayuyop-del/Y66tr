@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Coin Run</title>
+<style>
+body{
+text-align:center;
+background:#222;
+color:white;
+}
+
+#game{
+width:400px;
+height:200px;
+border:2px solid white;
+margin:auto;
+position:relative;
+overflow:hidden;
+}
+
+#player{
+width:30px;
+height:30px;
+background:lime;
+position:absolute;
+bottom:0;
+left:50px;
+}
+
+#coin{
+width:20px;
+height:20px;
+background:gold;
+border-radius:50%;
+position:absolute;
+bottom:0;
+left:400px;
+}
+
+#score{
+font-size:20px;
+}
+</style>
+</head>
+
+<body>
+
+<h2>เกมเก็บเหรียญ 🪙</h2>
+<p>กด SPACE เพื่อกระโดด</p>
+<div id="score">คะแนน: 0</div>
+
+<div id="game">
+<div id="player"></div>
+<div id="coin"></div>
+</div>
+
+<script>
+let player = document.getElementById("player");
+let coin = document.getElementById("coin");
+let score = 0;
+
+let jumping = false;
+
+document.addEventListener("keydown",function(e){
+if(e.code==="Space"){
+jump();
+}
+});
+
+function jump(){
+if(jumping) return;
+jumping = true;
+
+let up = setInterval(()=>{
+let bottom = parseInt(window.getComputedStyle(player).bottom);
+
+if(bottom >= 80){
+clearInterval(up);
+
+let down = setInterval(()=>{
+let bottom = parseInt(window.getComputedStyle(player).bottom);
+
+if(bottom <= 0){
+clearInterval(down);
+jumping = false;
+}else{
+player.style.bottom = (bottom - 5) + "px";
+}
+
+},20);
+
+}else{
+player.style.bottom = (bottom + 5) + "px";
+}
+
+},20);
+}
+
+setInterval(()=>{
+
+let coinLeft = parseInt(window.getComputedStyle(coin).left);
+
+if(coinLeft < -20){
+coin.style.left = "400px";
+}else{
+coin.style.left = (coinLeft - 5) + "px";
+}
+
+let playerBottom = parseInt(window.getComputedStyle(player).bottom);
+
+if(coinLeft < 80 && coinLeft > 40 && playerBottom > 20){
+score++;
+document.getElementById("score").innerText = "คะแนน: " + score;
+coin.style.left = "400px";
+}
+
+},20);
+</script>
+
+</body>
+</html>  1
