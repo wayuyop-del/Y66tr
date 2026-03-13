@@ -1,0 +1,78 @@
+import pygame
+import random
+
+pygame.init()
+
+width = 800
+height = 400
+screen = pygame.display.set_mode((width,height))
+pygame.display.set_caption("Dino Jump Level")
+
+white = (255,255,255)
+black = (0,0,0)
+green = (0,200,0)
+
+dino = pygame.Rect(100,300,40,40)
+
+velocity = 0
+gravity = 1
+jump = -15
+
+cactus = pygame.Rect(700,310,30,60)
+
+speed = 6
+score = 0
+level = 1
+
+font = pygame.font.SysFont(None,40)
+
+clock = pygame.time.Clock()
+
+running = True
+
+while running:
+
+    screen.fill(white)
+
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE and dino.y >= 300:
+                velocity = jump
+
+    velocity += gravity
+    dino.y += velocity
+
+    if dino.y > 300:
+        dino.y = 300
+
+    cactus.x -= speed
+
+    if cactus.x < -30:
+        cactus.x = random.randint(700,900)
+        score += 1
+
+        # เพิ่มเลเวล
+        if score % 5 == 0:
+            level += 1
+            speed += 1
+
+    if dino.colliderect(cactus):
+        print("Game Over")
+        running = False
+
+    pygame.draw.rect(screen, black, dino)
+    pygame.draw.rect(screen, green, cactus)
+
+    score_text = font.render("Score: "+str(score),True,black)
+    level_text = font.render("Level: "+str(level),True,black)
+
+    screen.blit(score_text,(10,10))
+    screen.blit(level_text,(10,50))
+
+    pygame.display.update()
+    clock.tick(60)
+
+pygame.quit()
