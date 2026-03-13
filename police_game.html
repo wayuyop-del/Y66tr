@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>เกมตำรวจจับโจร</title>
+<style>
+body{
+text-align:center;
+font-family:sans-serif;
+}
+#map{
+display:grid;
+grid-template-columns:repeat(5,60px);
+gap:5px;
+justify-content:center;
+margin-top:20px;
+}
+.cell{
+width:60px;
+height:60px;
+border:1px solid black;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:30px;
+}
+button{
+font-size:20px;
+margin:5px;
+padding:10px;
+}
+</style>
+</head>
+
+<body>
+
+<h2>🚓 เกมตำรวจจับโจร</h2>
+<p>คะแนน: <span id="score">0</span></p>
+<p>รอบที่เหลือ: <span id="turns">15</span></p>
+
+<div id="map"></div>
+
+<div>
+<button onclick="move(0,-1)">⬆️</button><br>
+<button onclick="move(-1,0)">⬅️</button>
+<button onclick="move(1,0)">➡️</button><br>
+<button onclick="move(0,1)">⬇️</button>
+</div>
+
+<script>
+
+let size = 5
+let turns = 15
+let score = 0
+
+let police = {x:0,y:0}
+let thief = {x:Math.floor(Math.random()*5),y:Math.floor(Math.random()*5)}
+
+function draw(){
+let map = document.getElementById("map")
+map.innerHTML=""
+
+for(let y=0;y<size;y++){
+for(let x=0;x<size;x++){
+
+let cell=document.createElement("div")
+cell.className="cell"
+
+if(x==police.x && y==police.y){
+cell.innerHTML="🚓"
+}
+else if(x==thief.x && y==thief.y){
+cell.innerHTML="🕵️"
+}
+
+map.appendChild(cell)
+}
+}
+
+document.getElementById("turns").innerText = turns
+document.getElementById("score").innerText = score
+}
+
+function thiefMove(){
+let dir = Math.floor(Math.random()*4)
+
+if(dir==0) thief.y--
+if(dir==1) thief.y++
+if(dir==2) thief.x--
+if(dir==3) thief.x++
+
+thief.x=Math.max(0,Math.min(4,thief.x))
+thief.y=Math.max(0,Math.min(4,thief.y))
+}
+
+function move(dx,dy){
+
+if(turns<=0) return
+
+police.x+=dx
+police.y+=dy
+
+police.x=Math.max(0,Math.min(4,police.x))
+police.y=Math.max(0,Math.min(4,police.y))
+
+thiefMove()
+
+turns--
+
+if(police.x==thief.x && police.y==thief.y){
+score += 10
+alert("🎉 จับโจรได้! +10 คะแนน")
+location.reload()
+}
+
+if(turns==0){
+alert("❌ เกมจบ คะแนนของคุณ: " + score)
+location.reload()
+}
+
+draw()
+}
+
+draw()
+
+</script>
+
+</body>
+</html>
