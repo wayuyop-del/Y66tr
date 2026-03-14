@@ -1,0 +1,89 @@
+# ------------------------
+# หน้าจอเกม
+# ------------------------
+
+WIDTH = 1000
+HEIGHT = 700
+FPS = 60
+
+TITLE = "หนีไป (Escape)"
+
+# ------------------------
+# ผู้เล่น
+# ------------------------
+
+PLAYER_SPEED = 5
+PLAYER_RUN_SPEED = 9
+PLAYER_HP = 100
+
+PLAYER_START_X = 500
+PLAYER_START_Y = 350
+
+REVIVE_COUNT = 4
+
+# ------------------------
+# ไอเทม
+# ------------------------
+
+COKE_COUNT = 4
+SHIELD_COUNT = 4
+TIME_STOP_COUNT = 3
+
+COKE_DURATION = 75
+SHIELD_DURATION = 5
+TIME_STOP_DURATION = 5
+
+# ------------------------
+# มอนสเตอร์
+# ------------------------
+
+ZOMBIE_SPEED = 1
+ZOMBIE_DAMAGE = 10
+
+GHOST_SPEED = 1
+GHOST_DAMAGE = 999
+
+SPIDER_SPEED = 3
+SPIDER_DAMAGE = 15
+
+BOMB_SPEED = 2
+
+# ------------------------
+# บอส
+# ------------------------
+
+BOSS_HP = 500
+BOSS_SPEED = 2
+BOSS_DAMAGE = 25
+
+# ------------------------
+# เขาวงกต
+# ------------------------
+
+MAZE_WIDTH = 25
+MAZE_HEIGHT = 25
+
+TILE_SIZE = 40
+
+# ------------------------
+# สีในเกม
+# ------------------------
+
+BLACK = (0,0,0)
+WHITE = (255,255,255)
+
+GREEN = (0,255,0)
+BLUE = (0,0,255)
+
+RED = (255,0,0)
+PURPLE = (200,0,200)
+
+ZOMBIE_COLOR = (0,150,0)
+GHOST_COLOR = (200,200,255)
+SPIDER_COLOR = (200,0,0)
+
+# ------------------------
+# UI
+# ------------------------
+
+UI_FONT_SIZE = 25
